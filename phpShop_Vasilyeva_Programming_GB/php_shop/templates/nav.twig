@@ -1,0 +1,7 @@
+<nav class="navigation container">
+    {% for item in navigation %}
+        {% if item.rendered == 0 %}
+            <a href="{{ item.href }}">{{ item.caption }}</a>
+        {% endif %}
+    {%  endfor %}
+</nav>

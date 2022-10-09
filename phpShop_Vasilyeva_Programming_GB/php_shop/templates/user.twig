@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+
+{% block content %} 
+
+<main class="container">
+    <p class="auth__message">WELCOME, {{ user.name }}!</p>
+
+    <section class="make-order">
+        <h2 class="make-order__h2">CONTACT INFORMATION</h2>
+        <div class="auth-info">
+            <div class="auth-info__header">LOGIN:</div><span class="auth-info__info">{{ user.login }}</span>
+            <div class="auth-info__header">NAME:</div><span class="auth-info__info">{{ user.name }}</span>
+            <div class="auth-info__header">SURNAME:</div><span class="auth-info__info">{{ user.surname }}</span>
+            <div class="auth-info__header">EMAIL ADDRESS:</div><span class="auth-info__info">{{ user.email }}</span>
+            <div class="auth-info__header">PHONE:</div><span class="auth-info__info">{{ user.phone }}</span>
+            <div class="auth-info__header auth-info__header_pdd">SHIPPING ADDRESS:</div>
+            <span class="auth-info__info">{{ user.address }}</span>
+        </div>        
+    </section>
+
+    <a href="/product"><button class="shipping__button shipping__button_fontSize14Dark shipping__buttonLogIn_mgTop" type="submit">CONTINUE SHOPPING</button></a>
+</main>
+{% endblock %}
+
+

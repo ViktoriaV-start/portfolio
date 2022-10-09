@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ShopTest::testAdd":5,"ProductTest::testNamespace":3},"times":{"ProductTest::testProduct":0.082,"ShopTest::testAdd":0,"ProductTest::testNamespace":0}}

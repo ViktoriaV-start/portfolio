@@ -1,0 +1,93 @@
+{% extends "layout.twig" %}
+
+{% block content %} 
+
+<main class="auth container">
+    <p class="auth__message">{{ message }} {{ userName }}</p>
+
+        <form class="auth__form" action="/auth/login" method="post">
+
+            <fieldset class="auth__buyer-status">
+                <legend class="shipping__checking shipping__text_fontSize13Dark">CHECK AS A GUEST OR REGISTER</legend>
+                <p class="shipping__text_fontSize13Light">Register with us for future convenience</p>
+
+                <div class="shipping__chooseStatus shipping__check_mgTop">
+                    <label for="radio" class="shipping__radioTitle">
+
+                        <input name="radioBtn" type="radio" class="shipping__radioCheck" id="radio">
+                        <div class="fakeChbx"></div>
+                        <span class="shipping__checkOutGuest shipping__text_fontSize12Dark">CHECKOUT AS GUEST</span>
+
+                    </label>
+                </div>
+
+                <div class="shipping__chooseStatus shipping__reg_mgTop">
+                    <label for="radioReg" class="shipping__radioTitleReg">
+
+                        <input name="radioBtn" type="radio" class="shipping__radioReg" id="radioReg">
+                        <div class="fakeChbxReg"></div>
+                        <span class="shipping__checkOutGuest shipping__text_fontSize12Dark">REGISTER</span>
+
+                    </label>
+                </div>
+
+                <p class="shipping__saveTime_mg shipping__text_fontSize13Dark">REGISTER AND SAVE TIME!</p>
+                <p class="shipping__text_fontSize13Light">Register with us for future convenience</p>
+                <p class="shipping__text_mrgTop shipping__text_fontSize13Light">Fast and easy checkout</p>
+                <p class="shipping__text_fontSize13Light">Easy access to your order history and status</p>
+                <button class="shipping__button shipping__button_fontSize14Dark shipping__buttonContinue_mgTop" type="submit">CONTINUE</button>
+            </fieldset>
+
+            <fieldset class="shipping__logIn">
+                <legend class="shipping__text_fontSize13Dark">ALREADY REGISTERED?</legend>
+
+                <p class="shipping__text_fontSize13Light">Please log in below</p>
+                <p class="shipping__mail_mrg shipping__text_fontSize12Dark">EMAIL ADDRESS<span class="shipping_textSpec">*</span></p>
+
+                <input type="email" name="email" class="shipping__emailInput shipping__emailInput_mgTop mail_fontSize12Dark" required>
+
+                <p class="shipping_password_mgTop shipping__text_fontSize12Dark">PASSWORD<span class="shipping_textSpec">*</span></p>
+
+                <input type="password" name="password" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fontSize12Dark" required>
+
+                <p class="shipping_requiredFields_mgTop shipping__text_fontColored">*Required Fields</p>
+
+                <button class="shipping__button shipping__button_fontSize14Dark shipping__buttonLogIn_mgTop" type="submit">LOG IN</button>
+                <a href="#" class="shipping_forgotLink shipping_forgotLink_mrgLeft shipping__text_fontSize14Dark">Forgot Password?</a>
+            </fieldset>
+
+        </form>
+
+    <form class="registration registration_mrg" action="/auth/registration" method="post">
+        <fieldset class="registration__wrap">
+            <legend class="registration__h2">REGISTRATION FORM</legend>
+
+            <p class="registration__text_light">Please log in below</p>
+
+            <p class="registration__text registration__text_dark">NAME<span class="shipping_textSpec">*</span></p>
+            <input type="text" name="name" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="registration__text registration__text_dark">SURNAME<span class="shipping_textSpec">*</span></p>
+            <input type="text" name="surname" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="registration__text registration__text_dark">EMAIL ADDRESS<span class="shipping_textSpec">*</span></p>
+            <input type="email" name="email" class="shipping__emailInput shipping__emailInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="registration__text registration__text_dark">PASSWORD<span class="shipping_textSpec">*</span></p>
+            <input type="password" name="password" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="registration__text registration__text_dark">PHONE<span class="shipping_textSpec">*</span></p>
+            <input type="text" name="phone" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="registration__text registration__text_dark">SHIPPING ADDRESS<span class="shipping_textSpec">*</span></p>
+            <input type="text" name="address" class="shipping__passwordInput shipping__passwordInput_mgTop shipping__text_fs12DarkLow" required>
+
+            <p class="shipping_requiredFields_mgTop shipping__text_fontColored">*Required Fields</p>
+
+            <button class="shipping__button shipping__button_fontSize14Dark shipping__buttonLogIn_mgTop" type="submit">REGISTER</button>
+
+        </fieldset>
+    </form>
+</main>
+
+{% endblock %}

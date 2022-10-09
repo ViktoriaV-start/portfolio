@@ -1,0 +1,126 @@
+{% extends "layout.twig" %}
+
+{% block content %} 
+
+<main class="container">
+    <section class='shop-cart'>
+
+        <div class="shop-cart__line">
+            <h3 class="shop-cart__heading">PRODUCT DETAILS</h3>
+            <span class="shop-cart__heading shop-cart__heading-name">UNIT PRICE</span>
+            <span class="shop-cart__heading shop-cart__heading-name">QUANTITY</span>
+            <span class="shop-cart__heading shop-cart__heading-name">SHIPPING</span>
+            <span class="shop-cart__heading shop-cart__heading-name">SUBTOTAL</span>
+            <span class="shop-cart__heading shop-cart__heading-name">ACTION</span>
+        </div>
+
+
+    {% for item in goods %}
+
+        <div class = 'shop-cart__line' data-id="{{ item.id }}">
+
+            <div class='shop-cart__details'>
+                <img class='shop-cart__photo' src='/images/img_small/card{{ item.product_id }}.jpg' alt='Added Product'>
+                <div class='shop-cart__details-wrapper shop-cart__title'>{{ item.name }}</div>
+            </div>
+
+            <span class='shop-cart__data'>${{ item.price }}</span>
+
+            <div class='shop-cart__data-input'>
+                <div class='shop-cart__quantity-wrap'>
+                    <span  class='shop-cart__quantity' data-id="{{ item.id }}">{{ item.quantity }}</span>
+                </div>
+            </div>
+
+            <span class='shop-cart__data'>FREE</span>
+            <span class='shop-cart__data shop-cart__price subtotal' data-id="{{ item.id }}">${{ item.subtotal }}</span>
+
+            <div class='shop-cart__delete-wrapper' data-id="{{ item.id }}">
+                    <button class='btn-delete'>
+                        <svg class='shop-cart__delete' fill='currentColor' height='15' width='15' viewBox='0 0 512 512'><path class='shop-cart__dlt'  d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z'></path></svg>
+                    </button>
+            </div>
+        </div>
+
+    {%  endfor %}
+
+        <div class="shop-cart__buttons">
+            <a href="/cart/clear"><button class="shop-cart__btn-clear">Clear Shopping Cart</button></a>
+            <a href="/product"><button class="shop-cart__btn-continue">Continue shopping</button></a>
+        </div>
+    </section>
+
+    <section class="ordering">
+        <form class="ordering__delivery">
+            <h3 class="ordering__address">SHIPPING ADDRESS</h3>
+            <input class="ordering__details" type="text" placeholder="Bangladesh">
+            <input class="ordering__details" type="text" placeholder="State">
+            <input class="ordering__details" type="text" placeholder="Postcode/ Zip">
+            <button class="ordering__quote" type="submit">GET A QUOTE</button>
+        </form>
+
+        <form class="ordering__discount">
+            <h3 class="ordering__coupon">COUPON DISCOUNT</h3>
+
+            <span class="ordering__discount-text">Enter your coupon code if you have one</span>
+            <input class="ordering__discount-code" type="text" placeholder="Coupon code">
+            <button class="ordering__apply" type="submit">APPLY COUPON</button>
+        </form>
+
+        <div class="ordering__total">
+            <div class="ordering__subtotal-wrapper">
+                <span class="ordering__subtotal">SUB TOTAL</span>
+                <span class="ordering__subtotal sum">${{ sum }}</span>
+            </div>
+            <div class="ordering__grandtotal-wrapper">
+                <h3 class="ordering__grandtotal">GRAND TOTAL</h3>
+                <span class="ordering__sum total">${{ sum }}</span>
+            </div>
+            <a href="/cart/ordering"><button class="ordering__proceed-btn" type="submit">PROCEED TO CHECKOUT</button></a>
+        </div>
+    </section>
+</main>
+
+    <script>
+        console.log(document.querySelector('.shop-cart__quantity[data-id=""]'));
+
+        let count = document.querySelector('.header__cart-quantity');
+
+        let buttons = document.querySelectorAll('.shop-cart__delete-wrapper');
+        buttons.forEach((elem) => {
+            elem.addEventListener('click', () => {
+                let id = elem.getAttribute('data-id');
+
+                (
+                    async () => { 
+                        const response = await fetch('/cart/delete', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json;charset=utf-8',
+                                // 'Access-Control-Allow-Origin': 'http://127.0.0.1:8888/cart/delete'
+                            },
+                            body: JSON.stringify({
+                                id: id
+                            })
+                        });
+                        let answer = await response.json();
+                        if (answer.productQuantity === 0) {
+                            document.querySelector(`.shop-cart__line[data-id="${id}"]`).remove();
+                            document.querySelector('.header__cart-quantity').innerHTML = answer.count;
+                            document.querySelector('.sum').innerHTML = `\$${answer.sum}`;
+                            document.querySelector('.total').innerHTML = `\$${answer.sum}`;
+                        }else{
+                            document.querySelector('.header__cart-quantity').innerHTML = answer.count;
+                            document.querySelector(`.shop-cart__quantity[data-id="${id}"]`).innerHTML = answer.productQuantity;
+                            document.querySelector(`.subtotal[data-id="${id}"]`).innerHTML = `\$${answer.productSubtotal}`;
+                            document.querySelector('.sum').innerHTML = `\$${answer.sum}`;
+                            document.querySelector('.total').innerHTML = `\$${answer.sum}`;
+                        }
+                    }
+                )();
+            })
+        });
+    </script>
+{% endblock %}
+
+
